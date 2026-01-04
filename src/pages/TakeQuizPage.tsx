@@ -151,6 +151,12 @@ const styles = {
     color: '#000000',
     fontSize: '14px'
   },
+  loading: {
+    padding: '10px',
+    textAlign: 'center' as const,
+    color: '#666666',
+    fontSize: '14px'
+  },
   actions: {
     display: 'flex',
     gap: '10px',

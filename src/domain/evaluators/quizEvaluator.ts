@@ -96,18 +96,6 @@ export class QuizEvaluator {
   }
 
   /**
-   * Evaluate a mathematical expression
-   */
-  private static evaluateExpression(expression: string): number | null {
-    try {
-      const result = evaluate(expression);
-      return typeof result === 'number' ? result : null;
-    } catch {
-      return null;
-    }
-  }
-
-  /**
    * Calculate result for an attempt (percentage of correct answers)
    */
   static calculateAttemptResult(
