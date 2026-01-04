@@ -7,7 +7,8 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'http://localhost:5000',
+        target: 'https://mrnewton-activity.onrender.com',
+        // Backup (local): 'http://localhost:5000'
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '/api/v1')
       }
