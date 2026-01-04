@@ -60,7 +60,7 @@ const createActions = (set: any, get: any) => ({
       });
     } catch (error: any) {
       set({ 
-        error: error.message || 'Failed to initialize quiz',
+        error: error.message || 'Falha ao inicializar o questionário',
         loading: false 
       });
     }
@@ -90,7 +90,7 @@ const createActions = (set: any, get: any) => ({
 
     // Validate all answers are provided
     if (!QuizEvaluator.areAllAnswersProvided(current_answers, quiz.exercises)) {
-      set({ error: 'Please answer all questions before submitting.' });
+      set({ error: 'Por favor, responda a todas as perguntas antes de submeter.' });
       return;
     }
 
@@ -150,7 +150,7 @@ const createActions = (set: any, get: any) => ({
     const { current_attempt, max_retries, is_approved } = get();
 
     if (!QuizEvaluator.canRetry(current_attempt, max_retries, is_approved)) {
-      set({ error: 'No more retries available or already approved.' });
+      set({ error: 'Não há mais tentativas disponíveis ou já foi aprovado.' });
       return;
     }
 
@@ -169,7 +169,7 @@ const createActions = (set: any, get: any) => ({
     const { instance_id, student_id, attempts } = get();
 
     if (attempts.length === 0) {
-      set({ error: 'No attempts to submit.' });
+      set({ error: 'Não há tentativas para submeter.' });
       return;
     }
 
@@ -186,10 +186,11 @@ const createActions = (set: any, get: any) => ({
             const typedVal = val as StudentAnswer;
             acc[key] = {
               selectedOption: typedVal.selected_option || '',
+              studentAnswer: typedVal.student_answer || '',
               rationale: typedVal.rationale || ''
             };
             return acc;
-          }, {} as Record<string, { selectedOption: string; rationale: string }>),
+          }, {} as Record<string, { selectedOption: string; studentAnswer: string; rationale: string }>),
           result: attempt.result,
           submittedAt: attempt.submitted_at,
           timeSpentSeconds: attempt.time_spent_seconds
@@ -204,7 +205,7 @@ const createActions = (set: any, get: any) => ({
       });
     } catch (error: any) {
       set({
-        error: error.message || 'Failed to save quiz results',
+        error: error.message || 'Falha ao guardar os resultados do questionário',
         loading: false
       });
     }

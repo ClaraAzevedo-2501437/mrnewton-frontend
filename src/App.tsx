@@ -10,6 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/quiz/:activityId" element={<TakeQuizPage />} />
+        <Route path="/instances/:instanceId" element={<TakeQuizPage />} />
         <Route path="/analytics" element={<AnalyticsPage />} />
       </Routes>
     </BrowserRouter>

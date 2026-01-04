@@ -26,22 +26,22 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
 
   return (
     <div style={styles.container}>
-      <h2 style={styles.title}>Quiz Results</h2>
+      <h2 style={styles.title}>Resultados do Questionário</h2>
 
       {/* Last Attempt Result */}
       <div style={{
         ...styles.resultCard,
         ...(isApproved ? styles.approvedCard : styles.notApprovedCard)
       }}>
-        <h3>Attempt {lastAttempt.attempt_index} Result</h3>
+        <h3>Resultado da Tentativa {lastAttempt.attempt_index}</h3>
         <div style={styles.score}>
           <span style={styles.scoreValue}>{lastAttempt.result.toFixed(1)}%</span>
         </div>
         <div style={styles.status}>
           {isApproved ? (
-            <span style={styles.approved}>✓ APPROVED</span>
+            <span style={styles.approved}>✓ APROVADO</span>
           ) : (
-            <span style={styles.notApproved}>✗ Not Approved (Threshold: {approvalThreshold}%)</span>
+            <span style={styles.notApproved}>✗ Não Aprovado (Limite: {approvalThreshold}%)</span>
           )}
         </div>
       </div>
@@ -49,19 +49,19 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
       {/* Best Attempt */}
       {attempts.length > 1 && bestAttempt && (
         <div style={styles.bestAttempt}>
-          <p><strong>Best Attempt:</strong> Attempt {bestAttempt.attempt_index} with {bestAttempt.result.toFixed(1)}%</p>
+          <p><strong>Melhor Tentativa:</strong> Tentativa {bestAttempt.attempt_index} com {bestAttempt.result.toFixed(1)}%</p>
         </div>
       )}
 
       {/* Attempt History */}
       <div style={styles.history}>
-        <h4>Attempt History:</h4>
+        <h4>Histórico de Tentativas:</h4>
         {attempts.map((attempt, index) => (
           <div key={index} style={styles.historyItem}>
-            <span><strong>Attempt {attempt.attempt_index}:</strong></span>
+            <span><strong>Tentativa {attempt.attempt_index}:</strong></span>
             <span>{attempt.result.toFixed(1)}%</span>
             <span style={styles.timestamp}>
-              {new Date(attempt.submitted_at).toLocaleString()}
+              {new Date(attempt.submitted_at).toLocaleString('pt-PT')}
             </span>
           </div>
         ))}
@@ -71,11 +71,11 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
       <div style={styles.actions}>
         {canRetry && !isApproved && (
           <button onClick={onRetry} style={styles.retryButton}>
-            Try Again
+            Tentar Novamente
           </button>
         )}
         <button onClick={onComplete} style={styles.completeButton}>
-          {isApproved ? 'Finish Quiz' : 'End Quiz'}
+          {isApproved ? 'Concluir Questionário' : 'Terminar Questionário'}
         </button>
       </div>
 
@@ -96,65 +96,70 @@ const styles = {
   },
   title: {
     textAlign: 'center' as const,
-    color: '#333',
-    marginBottom: '30px'
+    color: '#000000',
+    marginBottom: '30px',
+    fontSize: '20px',
+    fontWeight: 'normal' as const
   },
   resultCard: {
     padding: '30px',
-    borderRadius: '12px',
+    borderRadius: '2px',
     marginBottom: '20px',
-    textAlign: 'center' as const
+    textAlign: 'center' as const,
+    border: '1px solid #cccccc',
+    backgroundColor: '#ffffff'
   },
   approvedCard: {
-    backgroundColor: '#e8f5e9',
-    border: '2px solid #4CAF50'
+    backgroundColor: '#f5f5f5',
+    border: '1px solid #000000'
   },
   notApprovedCard: {
-    backgroundColor: '#ffebee',
-    border: '2px solid #f44336'
+    backgroundColor: '#ffffff',
+    border: '1px solid #cccccc'
   },
   score: {
     margin: '20px 0'
   },
   scoreValue: {
     fontSize: '48px',
-    fontWeight: 'bold' as const,
-    color: '#333'
+    fontWeight: 'normal' as const,
+    color: '#000000'
   },
   status: {
-    fontSize: '20px',
+    fontSize: '16px',
     marginTop: '10px'
   },
   approved: {
-    color: '#4CAF50',
-    fontWeight: 'bold' as const
+    color: '#000000'
   },
   notApproved: {
-    color: '#f44336',
-    fontWeight: 'bold' as const
+    color: '#666666'
   },
   bestAttempt: {
     padding: '15px',
-    backgroundColor: '#fff3e0',
-    borderLeft: '4px solid #ff9800',
-    borderRadius: '4px',
-    marginBottom: '20px'
+    backgroundColor: '#f5f5f5',
+    border: '1px solid #cccccc',
+    borderRadius: '2px',
+    marginBottom: '20px',
+    fontSize: '14px'
   },
   history: {
     marginTop: '20px',
     padding: '15px',
-    backgroundColor: '#f5f5f5',
-    borderRadius: '8px'
+    backgroundColor: '#f9f9f9',
+    border: '1px solid #e0e0e0',
+    borderRadius: '2px'
   },
   historyItem: {
     display: 'flex',
     justifyContent: 'space-between',
     padding: '10px',
-    borderBottom: '1px solid #ddd'
+    borderBottom: '1px solid #e0e0e0',
+    fontSize: '14px'
   },
   timestamp: {
     fontSize: '12px',
-    color: '#666'
+    color: '#666666'
   },
   actions: {
     display: 'flex',
@@ -165,28 +170,27 @@ const styles = {
   retryButton: {
     padding: '12px 30px',
     fontSize: '16px',
-    backgroundColor: '#2196F3',
-    color: 'white',
+    backgroundColor: '#000000',
+    color: '#ffffff',
     border: 'none',
-    borderRadius: '6px',
+    borderRadius: '2px',
     cursor: 'pointer',
-    fontWeight: 'bold' as const
+    fontWeight: 'normal' as const
   },
   completeButton: {
     padding: '12px 30px',
     fontSize: '16px',
-    backgroundColor: '#4CAF50',
-    color: 'white',
-    border: 'none',
-    borderRadius: '6px',
+    backgroundColor: '#ffffff',
+    color: '#000000',
+    border: '1px solid #cccccc',
+    borderRadius: '2px',
     cursor: 'pointer',
-    fontWeight: 'bold' as const
+    fontWeight: 'normal' as const
   },
   info: {
     textAlign: 'center' as const,
-    color: '#666',
-    fontSize: '14px',
-    marginTop: '20px',
-    fontStyle: 'italic' as const
+    color: '#666666',
+    fontSize: '13px',
+    marginTop: '20px'
   }
 };

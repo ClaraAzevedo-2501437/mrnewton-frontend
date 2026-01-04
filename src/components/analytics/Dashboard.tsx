@@ -126,20 +126,24 @@ const styles = {
   loading: {
     textAlign: 'center' as const,
     padding: '50px',
-    fontSize: '18px'
+    fontSize: '16px',
+    color: '#666666'
   },
   error: {
     padding: '20px',
-    backgroundColor: '#ffebee',
-    border: '1px solid #f44336',
-    borderRadius: '4px',
-    color: '#c62828',
-    textAlign: 'center' as const
+    backgroundColor: '#f5f5f5',
+    border: '1px solid #cccccc',
+    borderRadius: '2px',
+    color: '#000000',
+    textAlign: 'center' as const,
+    fontSize: '14px'
   },
   title: {
     textAlign: 'center' as const,
     marginBottom: '30px',
-    color: '#333'
+    color: '#000000',
+    fontSize: '24px',
+    fontWeight: 'normal' as const
   },
   section: {
     marginBottom: '40px'
@@ -147,88 +151,96 @@ const styles = {
   metricsGrid: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-    gap: '15px'
+    gap: '12px'
   },
   metricOption: {
     display: 'flex',
     gap: '10px',
     padding: '15px',
-    border: '1px solid #ddd',
-    borderRadius: '8px',
+    border: '1px solid #e0e0e0',
+    borderRadius: '2px',
     cursor: 'pointer',
-    backgroundColor: '#fafafa',
-    transition: 'all 0.2s'
+    backgroundColor: '#ffffff',
+    transition: 'border-color 0.2s'
   },
   checkbox: {
     marginTop: '5px',
     cursor: 'pointer'
   },
   metricName: {
-    fontWeight: 'bold' as const,
-    marginBottom: '5px'
+    fontWeight: 'normal' as const,
+    marginBottom: '5px',
+    fontSize: '14px',
+    color: '#000000'
   },
   metricDescription: {
-    fontSize: '14px',
-    color: '#666',
+    fontSize: '13px',
+    color: '#666666',
     marginBottom: '5px'
   },
   metricType: {
-    fontSize: '12px',
+    fontSize: '11px',
     padding: '2px 8px',
-    backgroundColor: '#e3f2fd',
-    borderRadius: '4px',
-    color: '#1976d2'
+    backgroundColor: '#f5f5f5',
+    border: '1px solid #e0e0e0',
+    borderRadius: '2px',
+    color: '#000000'
   },
   actionContainer: {
     textAlign: 'center' as const,
     marginBottom: '30px'
   },
   fetchButton: {
-    padding: '15px 40px',
+    padding: '12px 32px',
     fontSize: '16px',
-    backgroundColor: '#2196F3',
-    color: 'white',
+    backgroundColor: '#000000',
+    color: '#ffffff',
     border: 'none',
-    borderRadius: '8px',
+    borderRadius: '2px',
     cursor: 'pointer',
-    fontWeight: 'bold' as const
+    fontWeight: 'normal' as const
   },
   disabledButton: {
-    backgroundColor: '#ccc',
-    cursor: 'not-allowed'
+    backgroundColor: '#cccccc',
+    cursor: 'not-allowed',
+    color: '#666666'
   },
   resultsGrid: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
-    gap: '20px'
+    gap: '15px'
   },
   resultCard: {
     padding: '20px',
-    border: '1px solid #ddd',
-    borderRadius: '8px',
-    backgroundColor: '#fff'
+    border: '1px solid #e0e0e0',
+    borderRadius: '2px',
+    backgroundColor: '#ffffff'
   },
   resultTitle: {
     marginBottom: '15px',
-    color: '#333'
+    color: '#000000',
+    fontSize: '16px',
+    fontWeight: 'normal' as const
   },
   metricValue: {
     fontSize: '32px',
-    fontWeight: 'bold' as const,
-    color: '#2196F3',
+    fontWeight: 'normal' as const,
+    color: '#000000',
     display: 'block',
     marginBottom: '10px'
   },
   jsonValue: {
     backgroundColor: '#f5f5f5',
     padding: '10px',
-    borderRadius: '4px',
+    border: '1px solid #e0e0e0',
+    borderRadius: '2px',
     fontSize: '12px',
-    overflow: 'auto'
+    overflow: 'auto',
+    fontFamily: 'monospace'
   },
   timestamp: {
     fontSize: '12px',
-    color: '#999',
+    color: '#666666',
     marginTop: '10px'
   }
 };

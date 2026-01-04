@@ -3,12 +3,12 @@ import { QuizConfig, FinalQuizResult } from '../domain/models/Quiz';
 
 /**
  * Activity API Client
- * Communicates with the frontend BFF server which proxies to Activity backend
+ * Communicates directly with Activity backend via Vite proxy
  */
 class ActivityApiClient {
   private client: AxiosInstance;
 
-  constructor(baseURL: string = '/api/activity') {
+  constructor(baseURL: string = '/api') {
     this.client = axios.create({
       baseURL,
       headers: {
@@ -42,6 +42,26 @@ class ActivityApiClient {
         correct_options: ex.correct_options,
         correct_answer: ex.correct_answer
       }))
+    };
+  }
+
+  /**
+   * Get deployment instance details
+   */
+  async getInstanceDetails(instanceId: string): Promise<{
+    instance_id: string;
+    activity_id: string;
+    created_at: string;
+    expires_at: string;
+    session_params?: Record<string, any>;
+  }> {
+    const response = await this.client.get(`/deploy/${instanceId}`);
+    return {
+      instance_id: response.data.instance_id,
+      activity_id: response.data.activity_id,
+      created_at: response.data.created_at,
+      expires_at: response.data.expires_at,
+      session_params: response.data.session_params
     };
   }
 

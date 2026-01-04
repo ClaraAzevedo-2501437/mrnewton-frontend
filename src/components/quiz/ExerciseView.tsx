@@ -17,6 +17,7 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({
   disabled = false
 }) => {
   const [selectedOption, setSelectedOption] = useState<string>(answer?.selected_option || '');
+  const [studentAnswer, setStudentAnswer] = useState<string>(answer?.student_answer || '');
   const [rationale, setRationale] = useState<string>(answer?.rationale || '');
 
   const handleOptionChange = (option: string) => {
@@ -24,6 +25,19 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({
     onAnswerChange({
       exercise_id: exercise.id,
       selected_option: option,
+      student_answer: studentAnswer,
+      rationale,
+      is_correct: answer?.is_correct
+    });
+  };
+
+  const handleStudentAnswerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newAnswer = e.target.value;
+    setStudentAnswer(newAnswer);
+    onAnswerChange({
+      exercise_id: exercise.id,
+      selected_option: selectedOption,
+      student_answer: newAnswer,
       rationale,
       is_correct: answer?.is_correct
     });
@@ -35,6 +49,7 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({
     onAnswerChange({
       exercise_id: exercise.id,
       selected_option: selectedOption,
+      student_answer: studentAnswer,
       rationale: newRationale,
       is_correct: answer?.is_correct
     });
@@ -81,27 +96,41 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({
 
       {showCorrectAnswer && (
         <div style={styles.correctAnswer}>
-          <strong>Correct Answer:</strong> {exercise.correct_options} - {exercise.correct_answer}
+          <strong>Resposta Correta:</strong> {exercise.correct_options} - {exercise.correct_answer}
         </div>
       )}
 
+      <div className="answer-input" style={styles.answerContainer}>
+        <label style={styles.label}>
+          <strong>Resposta:</strong>
+        </label>
+        <input
+          type="text"
+          value={studentAnswer}
+          onChange={handleStudentAnswerChange}
+          placeholder="Insira a sua resposta numérica..."
+          disabled={disabled}
+          style={styles.input}
+        />
+      </div>
+
       <div className="rationale" style={styles.rationaleContainer}>
         <label style={styles.label}>
-          <strong>Explain your reasoning:</strong>
+          <strong>Justificação:</strong>
         </label>
         <textarea
           value={rationale}
           onChange={handleRationaleChange}
-          placeholder="Explain why you chose this answer..."
+          placeholder="Explique o seu raciocínio e como chegou a esta resposta..."
           disabled={disabled}
-          rows={3}
+          rows={4}
           style={styles.textarea}
         />
       </div>
 
       {answer?.is_correct !== undefined && (
         <div style={answer.is_correct ? styles.correct : styles.incorrect}>
-          {answer.is_correct ? '✓ Correct' : '✗ Incorrect'}
+          {answer.is_correct ? '✓ Correto' : '✗ Incorreto'}
         </div>
       )}
     </div>
@@ -110,87 +139,104 @@ export const ExerciseView: React.FC<ExerciseViewProps> = ({
 
 const styles = {
   container: {
-    border: '1px solid #ddd',
-    borderRadius: '8px',
+    border: '1px solid #e0e0e0',
+    borderRadius: '2px',
     padding: '20px',
-    marginBottom: '20px',
-    backgroundColor: '#fff'
+    marginBottom: '15px',
+    backgroundColor: '#ffffff'
   },
   question: {
-    fontSize: '18px',
-    marginBottom: '15px',
-    color: '#333'
+    fontSize: '16px',
+    marginBottom: '20px',
+    color: '#000000',
+    fontWeight: 'normal' as const,
+    lineHeight: '1.5'
   },
   optionsContainer: {
     display: 'flex',
     flexDirection: 'column' as const,
-    gap: '10px',
-    marginBottom: '15px'
+    gap: '8px',
+    marginBottom: '20px'
   },
   option: {
     display: 'flex',
     alignItems: 'center',
     padding: '12px',
-    border: '2px solid #e0e0e0',
-    borderRadius: '6px',
+    border: '1px solid #cccccc',
+    borderRadius: '2px',
     cursor: 'pointer',
-    transition: 'all 0.2s',
-    backgroundColor: '#fafafa'
+    backgroundColor: '#ffffff',
+    transition: 'border-color 0.2s'
   },
   selectedOption: {
-    borderColor: '#4CAF50',
-    backgroundColor: '#e8f5e9'
+    borderColor: '#000000',
+    backgroundColor: '#f5f5f5'
   },
   correctOption: {
-    borderColor: '#2196F3',
-    backgroundColor: '#e3f2fd'
+    borderColor: '#000000',
+    backgroundColor: '#f9f9f9'
   },
   disabledOption: {
     cursor: 'not-allowed',
-    opacity: 0.7
+    opacity: 0.6
   },
   radio: {
     marginRight: '10px',
     cursor: 'pointer'
   },
+  answerContainer: {
+    marginBottom: '15px'
+  },
   rationaleContainer: {
-    marginTop: '15px'
+    marginBottom: '15px'
   },
   label: {
     display: 'block',
     marginBottom: '8px',
-    color: '#555'
+    color: '#000000',
+    fontSize: '14px'
+  },
+  input: {
+    width: '100%',
+    padding: '10px',
+    border: '1px solid #cccccc',
+    borderRadius: '2px',
+    fontSize: '14px',
+    boxSizing: 'border-box' as const
   },
   textarea: {
     width: '100%',
     padding: '10px',
-    border: '1px solid #ddd',
-    borderRadius: '4px',
+    border: '1px solid #cccccc',
+    borderRadius: '2px',
     fontSize: '14px',
     fontFamily: 'inherit',
-    resize: 'vertical' as const
+    resize: 'vertical' as const,
+    backgroundColor: '#ffffff',
+    lineHeight: '1.5'
   },
   correctAnswer: {
     marginTop: '15px',
-    padding: '10px',
-    backgroundColor: '#e3f2fd',
-    borderLeft: '4px solid #2196F3',
-    borderRadius: '4px'
+    padding: '12px',
+    backgroundColor: '#f5f5f5',
+    border: '1px solid #cccccc',
+    borderRadius: '2px',
+    fontSize: '14px'
   },
   correct: {
     marginTop: '10px',
-    padding: '8px',
-    backgroundColor: '#4CAF50',
-    color: 'white',
-    borderRadius: '4px',
-    fontWeight: 'bold' as const
+    padding: '8px 12px',
+    backgroundColor: '#000000',
+    color: '#ffffff',
+    borderRadius: '2px',
+    fontSize: '13px'
   },
   incorrect: {
     marginTop: '10px',
-    padding: '8px',
-    backgroundColor: '#f44336',
-    color: 'white',
-    borderRadius: '4px',
-    fontWeight: 'bold' as const
+    padding: '8px 12px',
+    backgroundColor: '#666666',
+    color: '#ffffff',
+    borderRadius: '2px',
+    fontSize: '13px'
   }
 };

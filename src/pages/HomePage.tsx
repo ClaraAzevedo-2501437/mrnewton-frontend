@@ -5,14 +5,11 @@ export const HomePage: React.FC = () => {
   return (
     <div style={styles.container}>
       <header style={styles.header}>
-        <h1>MrNewton Frontend BFF API</h1>
-        <p>Backend-for-Frontend layer for Activity Provider</p>
+        <h1>MrNewton Activity Provider</h1>
+        <p>Frontend Interface for Quiz Execution and Analytics</p>
       </header>
 
       <nav style={styles.nav}>
-        <a href="http://localhost:3001/api/activity/config/new" style={styles.navLink} target="_blank" rel="noopener noreferrer">
-          Create New Activity
-        </a>
         <Link to="/analytics" style={styles.navLink}>
           Analytics Dashboard
         </Link>
@@ -22,25 +19,17 @@ export const HomePage: React.FC = () => {
         <section style={styles.section}>
           <h2 style={styles.sectionTitle}>Available API Endpoints</h2>
           <p style={styles.intro}>
-            All requests go through the BFF server at <code style={styles.code}>http://localhost:3001</code>
+            All requests go through Vite proxy to Activity Backend at <code style={styles.code}>http://localhost:5000</code>
           </p>
 
           {/* Configuration Endpoints */}
           <div style={styles.endpointGroup}>
             <h3 style={styles.groupTitle}>Configuration Management</h3>
-            
-            <div style={styles.endpoint}>
-              <div style={styles.methodGet}>GET</div>
-              <div style={styles.endpointInfo}>
-                <div style={styles.path}>/api/activity/config/new</div>
-                <div style={styles.description}>HTML form to create a new activity</div>
-              </div>
-            </div>
 
             <div style={styles.endpoint}>
               <div style={styles.methodGet}>GET</div>
               <div style={styles.endpointInfo}>
-                <div style={styles.path}>/api/activity/config</div>
+                <div style={styles.path}>/api/config</div>
                 <div style={styles.description}>Get all activity configurations</div>
               </div>
             </div>
@@ -48,7 +37,7 @@ export const HomePage: React.FC = () => {
             <div style={styles.endpoint}>
               <div style={styles.methodGet}>GET</div>
               <div style={styles.endpointInfo}>
-                <div style={styles.path}>/api/activity/config/:activityId</div>
+                <div style={styles.path}>/api/config/:activityId</div>
                 <div style={styles.description}>Get specific activity configuration</div>
               </div>
             </div>
@@ -56,7 +45,7 @@ export const HomePage: React.FC = () => {
             <div style={styles.endpoint}>
               <div style={styles.methodGet}>GET</div>
               <div style={styles.endpointInfo}>
-                <div style={styles.path}>/api/activity/config/params</div>
+                <div style={styles.path}>/api/config/params</div>
                 <div style={styles.description}>Get configuration parameter schemas</div>
               </div>
             </div>
@@ -64,7 +53,7 @@ export const HomePage: React.FC = () => {
             <div style={styles.endpoint}>
               <div style={styles.methodPut}>PUT</div>
               <div style={styles.endpointInfo}>
-                <div style={styles.path}>/api/activity/config/params</div>
+                <div style={styles.path}>/api/config/params</div>
                 <div style={styles.description}>Update configuration parameter schemas</div>
               </div>
             </div>
@@ -77,7 +66,7 @@ export const HomePage: React.FC = () => {
             <div style={styles.endpoint}>
               <div style={styles.methodPost}>POST</div>
               <div style={styles.endpointInfo}>
-                <div style={styles.path}>/api/activity/deploy</div>
+                <div style={styles.path}>/api/deploy</div>
                 <div style={styles.description}>Deploy an activity (create instance)</div>
               </div>
             </div>
@@ -85,7 +74,7 @@ export const HomePage: React.FC = () => {
             <div style={styles.endpoint}>
               <div style={styles.methodGet}>GET</div>
               <div style={styles.endpointInfo}>
-                <div style={styles.path}>/api/activity/deploy/:instanceId</div>
+                <div style={styles.path}>/api/deploy/:instanceId</div>
                 <div style={styles.description}>Get deployment instance details</div>
               </div>
             </div>
@@ -93,7 +82,7 @@ export const HomePage: React.FC = () => {
             <div style={styles.endpoint}>
               <div style={styles.methodGet}>GET</div>
               <div style={styles.endpointInfo}>
-                <div style={styles.path}>/api/activity/deploy/activity/:activityId</div>
+                <div style={styles.path}>/api/deploy/activity/:activityId</div>
                 <div style={styles.description}>Get all instances for an activity</div>
               </div>
             </div>
@@ -106,7 +95,7 @@ export const HomePage: React.FC = () => {
             <div style={styles.endpoint}>
               <div style={styles.methodPost}>POST</div>
               <div style={styles.endpointInfo}>
-                <div style={styles.path}>/api/activity/submissions</div>
+                <div style={styles.path}>/api/submissions</div>
                 <div style={styles.description}>Record a student submission</div>
               </div>
             </div>
@@ -114,7 +103,7 @@ export const HomePage: React.FC = () => {
             <div style={styles.endpoint}>
               <div style={styles.methodGet}>GET</div>
               <div style={styles.endpointInfo}>
-                <div style={styles.path}>/api/activity/submissions/instance/:instanceId</div>
+                <div style={styles.path}>/api/submissions/instance/:instanceId</div>
                 <div style={styles.description}>Get all submissions for an instance</div>
               </div>
             </div>
@@ -122,7 +111,7 @@ export const HomePage: React.FC = () => {
             <div style={styles.endpoint}>
               <div style={styles.methodGet}>GET</div>
               <div style={styles.endpointInfo}>
-                <div style={styles.path}>/api/activity/submissions/instance/:instanceId/student/:studentId</div>
+                <div style={styles.path}>/api/submissions/instance/:instanceId/student/:studentId</div>
                 <div style={styles.description}>Get submission for specific student</div>
               </div>
             </div>
@@ -132,15 +121,12 @@ export const HomePage: React.FC = () => {
         <section style={styles.section}>
           <h2 style={styles.sectionTitle}>Architecture</h2>
           <div style={styles.architecture}>
-            <div style={styles.archBox}>React UI<br/><small>localhost:3000</small></div>
-            <div style={styles.arrow}>→</div>
-            <div style={styles.archBox}>BFF Server<br/><small>localhost:3001</small></div>
+            <div style={styles.archBox}>React UI + Vite<br/><small>localhost:3000</small></div>
             <div style={styles.arrow}>→</div>
             <div style={styles.archBox}>Activity Backend<br/><small>localhost:5000</small></div>
           </div>
           <p style={styles.archDescription}>
-            All activity requests flow through the BFF (Backend-for-Frontend) layer,
-            which proxies requests to the appropriate backend service.
+            Vite proxy automatically rewrites /api to /api/v1 for backend compatibility.
           </p>
         </section>
 
@@ -148,21 +134,20 @@ export const HomePage: React.FC = () => {
           <h2 style={styles.sectionTitle}>Quick Start</h2>
           <div style={styles.codeBlock}>
             <pre>
-{`# Start BFF Server
-npm run server:dev
+{`# Install dependencies
+npm install
 
-# Start React UI
+# Start development server
 npm run dev
 
-# Or start both together
-npm run start:all`}
+# Access at http://localhost:3000`}
             </pre>
           </div>
         </section>
       </main>
 
       <footer style={styles.footer}>
-        <p>MrNewton Frontend BFF © 2026</p>
+        <p>MrNewton Activity Provider © 2026</p>
       </footer>
     </div>
   );
@@ -173,19 +158,20 @@ const styles = {
     minHeight: '100vh',
     display: 'flex',
     flexDirection: 'column' as const,
-    backgroundColor: '#f5f5f5'
+    backgroundColor: '#ffffff'
   },
   header: {
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    color: 'white',
+    backgroundColor: '#ffffff',
+    color: '#000000',
     padding: '40px 20px',
-    textAlign: 'center' as const
+    textAlign: 'center' as const,
+    borderBottom: '1px solid #e0e0e0'
   },
   nav: {
-    backgroundColor: 'white',
+    backgroundColor: '#ffffff',
     padding: '15px',
     textAlign: 'center' as const,
-    borderBottom: '1px solid #ddd',
+    borderBottom: '1px solid #e0e0e0',
     display: 'flex',
     justifyContent: 'center',
     gap: '15px',
@@ -193,12 +179,13 @@ const styles = {
   },
   navLink: {
     padding: '10px 20px',
-    backgroundColor: '#2196F3',
-    color: 'white',
+    backgroundColor: '#000000',
+    color: '#ffffff',
     textDecoration: 'none',
-    borderRadius: '6px',
-    fontWeight: 'bold' as const,
-    display: 'inline-block'
+    borderRadius: '2px',
+    fontWeight: 'normal' as const,
+    display: 'inline-block',
+    fontSize: '14px'
   },
   main: {
     flex: 1,
@@ -208,81 +195,84 @@ const styles = {
     padding: '40px 20px'
   },
   section: {
-    backgroundColor: 'white',
-    borderRadius: '12px',
+    backgroundColor: '#ffffff',
+    border: '1px solid #e0e0e0',
+    borderRadius: '2px',
     padding: '30px',
-    marginBottom: '30px',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+    marginBottom: '30px'
   },
   sectionTitle: {
     marginBottom: '20px',
-    color: '#333',
-    fontSize: '24px',
-    borderBottom: '2px solid #2196F3',
-    paddingBottom: '10px'
+    color: '#000000',
+    fontSize: '20px',
+    borderBottom: '1px solid #e0e0e0',
+    paddingBottom: '10px',
+    fontWeight: 'normal' as const
   },
   intro: {
     marginBottom: '30px',
-    color: '#666',
-    fontSize: '16px'
+    color: '#666666',
+    fontSize: '14px'
   },
   code: {
     backgroundColor: '#f5f5f5',
     padding: '3px 8px',
-    borderRadius: '4px',
+    borderRadius: '2px',
     fontFamily: 'monospace',
-    fontSize: '14px',
-    color: '#d32f2f'
+    fontSize: '13px',
+    color: '#000000',
+    border: '1px solid #e0e0e0'
   },
   endpointGroup: {
     marginBottom: '30px'
   },
   groupTitle: {
-    fontSize: '18px',
-    color: '#2196F3',
+    fontSize: '16px',
+    color: '#000000',
     marginBottom: '15px',
-    fontWeight: 'bold' as const
+    fontWeight: 'normal' as const
   },
   endpoint: {
     display: 'flex',
     alignItems: 'flex-start',
-    padding: '15px',
-    marginBottom: '10px',
-    backgroundColor: '#f8f9fa',
-    borderRadius: '8px',
+    padding: '12px',
+    marginBottom: '8px',
+    backgroundColor: '#ffffff',
+    borderRadius: '2px',
     border: '1px solid #e0e0e0'
   },
   methodGet: {
-    padding: '5px 12px',
-    backgroundColor: '#4CAF50',
-    color: 'white',
-    borderRadius: '4px',
-    fontSize: '12px',
-    fontWeight: 'bold' as const,
-    marginRight: '15px',
-    minWidth: '55px',
+    padding: '4px 10px',
+    backgroundColor: '#f5f5f5',
+    color: '#000000',
+    border: '1px solid #cccccc',
+    borderRadius: '2px',
+    fontSize: '11px',
+    fontWeight: 'normal' as const,
+    marginRight: '12px',
+    minWidth: '50px',
     textAlign: 'center' as const
   },
   methodPost: {
-    padding: '5px 12px',
-    backgroundColor: '#FF9800',
-    color: 'white',
-    borderRadius: '4px',
-    fontSize: '12px',
-    fontWeight: 'bold' as const,
-    marginRight: '15px',
-    minWidth: '55px',
+    padding: '4px 10px',
+    backgroundColor: '#000000',
+    color: '#ffffff',
+    borderRadius: '2px',
+    fontSize: '11px',
+    fontWeight: 'normal' as const,
+    marginRight: '12px',
+    minWidth: '50px',
     textAlign: 'center' as const
   },
   methodPut: {
-    padding: '5px 12px',
-    backgroundColor: '#2196F3',
-    color: 'white',
-    borderRadius: '4px',
-    fontSize: '12px',
-    fontWeight: 'bold' as const,
-    marginRight: '15px',
-    minWidth: '55px',
+    padding: '4px 10px',
+    backgroundColor: '#666666',
+    color: '#ffffff',
+    borderRadius: '2px',
+    fontSize: '11px',
+    fontWeight: 'normal' as const,
+    marginRight: '12px',
+    minWidth: '50px',
     textAlign: 'center' as const
   },
   endpointInfo: {
@@ -290,14 +280,14 @@ const styles = {
   },
   path: {
     fontFamily: 'monospace',
-    fontSize: '14px',
-    color: '#333',
-    fontWeight: 'bold' as const,
+    fontSize: '13px',
+    color: '#000000',
+    fontWeight: 'normal' as const,
     marginBottom: '5px'
   },
   description: {
-    fontSize: '14px',
-    color: '#666'
+    fontSize: '13px',
+    color: '#666666'
   },
   architecture: {
     display: 'flex',
@@ -305,43 +295,50 @@ const styles = {
     justifyContent: 'center',
     gap: '20px',
     padding: '30px',
-    backgroundColor: '#f8f9fa',
-    borderRadius: '8px',
+    backgroundColor: '#f9f9f9',
+    border: '1px solid #e0e0e0',
+    borderRadius: '2px',
     marginBottom: '20px',
     flexWrap: 'wrap' as const
   },
   archBox: {
     padding: '20px 30px',
-    backgroundColor: 'white',
-    border: '2px solid #2196F3',
-    borderRadius: '8px',
+    backgroundColor: '#ffffff',
+    border: '1px solid #cccccc',
+    borderRadius: '2px',
     textAlign: 'center' as const,
-    fontWeight: 'bold' as const,
-    color: '#333'
+    fontWeight: 'normal' as const,
+    color: '#000000',
+    fontSize: '14px'
   },
   arrow: {
-    fontSize: '24px',
-    color: '#2196F3',
-    fontWeight: 'bold' as const
+    fontSize: '20px',
+    color: '#000000',
+    fontWeight: 'normal' as const
   },
   archDescription: {
     textAlign: 'center' as const,
-    color: '#666',
-    fontSize: '14px',
+    color: '#666666',
+    fontSize: '13px',
     lineHeight: '1.6'
   },
   codeBlock: {
-    backgroundColor: '#1e1e1e',
-    color: '#d4d4d4',
+    backgroundColor: '#f5f5f5',
+    color: '#000000',
     padding: '20px',
-    borderRadius: '8px',
-    overflow: 'auto'
+    borderRadius: '2px',
+    overflow: 'auto',
+    border: '1px solid #e0e0e0',
+    fontSize: '13px',
+    fontFamily: 'monospace'
   },
   footer: {
-    backgroundColor: '#333',
-    color: 'white',
+    backgroundColor: '#f5f5f5',
+    color: '#000000',
     padding: '20px',
     textAlign: 'center' as const,
-    marginTop: 'auto'
+    marginTop: 'auto',
+    borderTop: '1px solid #e0e0e0',
+    fontSize: '13px'
   }
 };

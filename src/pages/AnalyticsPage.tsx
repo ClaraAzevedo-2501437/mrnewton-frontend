@@ -84,20 +84,22 @@ export const AnalyticsPage: React.FC = () => {
 const styles = {
   container: {
     minHeight: '100vh',
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#ffffff',
     padding: '20px'
   },
   filterSection: {
     maxWidth: '1200px',
     margin: '0 auto 30px',
     padding: '20px',
-    backgroundColor: 'white',
-    borderRadius: '8px',
-    boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+    backgroundColor: '#ffffff',
+    border: '1px solid #e0e0e0',
+    borderRadius: '2px'
   },
   filterTitle: {
     marginBottom: '15px',
-    color: '#333'
+    color: '#000000',
+    fontSize: '18px',
+    fontWeight: 'normal' as const
   },
   filterOptions: {
     display: 'flex',
@@ -108,14 +110,16 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     gap: '8px',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    fontSize: '14px'
   },
   input: {
     width: '100%',
     maxWidth: '400px',
     padding: '10px',
     fontSize: '14px',
-    border: '1px solid #ddd',
-    borderRadius: '6px'
+    border: '1px solid #cccccc',
+    borderRadius: '2px',
+    backgroundColor: '#ffffff'
   }
 };

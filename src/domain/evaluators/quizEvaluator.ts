@@ -14,24 +14,29 @@ export class QuizEvaluator {
     answer: StudentAnswer,
     config: QuizConfig
   ): boolean {
-    const selectedOption = answer.selected_option;
-    const correctOption = exercise.correct_options;
+    const selectedOption = answer.selected_option; // This is "A", "B", "C", or "D"
+    const correctOption = exercise.correct_options; // This is the full text of correct option
 
-    // Check if selected option matches correct option
-    if (selectedOption !== correctOption) {
+    // Convert letter to option text
+    const selectedOptionIndex = selectedOption.charCodeAt(0) - 65; // "A" -> 0, "B" -> 1, etc.
+    const selectedOptionText = exercise.options[selectedOptionIndex];
+
+    // Check if selected option text matches correct option text
+    if (selectedOptionText !== correctOption) {
       return false;
     }
 
-    // For numeric answers, check tolerance if provided
-    if (config.relative_tolerance_pct !== undefined || config.absolute_tolerance !== undefined) {
+    // If student provided a numerical answer, validate it against correct_answer
+    if (answer.student_answer && answer.student_answer.trim() !== '') {
       return this.checkNumericTolerance(
-        answer.selected_option,
+        answer.student_answer,
         exercise.correct_answer,
         config.relative_tolerance_pct,
         config.absolute_tolerance
       );
     }
 
+    // If no numerical answer required or provided, just check the option
     return true;
   }
 
@@ -45,13 +50,30 @@ export class QuizEvaluator {
     absoluteTolerance?: number
   ): boolean {
     try {
-      const studentValue = this.evaluateExpression(studentAnswer);
-      const correctValue = this.evaluateExpression(correctAnswer);
+      // Normalize both answers for comparison
+      const studentNormalized = studentAnswer.trim().replace(/\s+/g, ' ');
+      const correctNormalized = correctAnswer.trim().replace(/\s+/g, ' ');
 
-      if (studentValue === null || correctValue === null) {
+      // Extract numeric part and unit from both answers
+      const studentMatch = studentNormalized.match(/^([-+]?[0-9]*\.?[0-9]+(?:[eE][-+]?[0-9]+)?)\s*(.*)$/);
+      const correctMatch = correctNormalized.match(/^([-+]?[0-9]*\.?[0-9]+(?:[eE][-+]?[0-9]+)?)\s*(.*)$/);
+
+      if (!studentMatch || !correctMatch) {
+        // If can't parse as number + unit, try exact string match
+        return studentNormalized === correctNormalized;
+      }
+
+      const studentValue = parseFloat(studentMatch[1]);
+      const correctValue = parseFloat(correctMatch[1]);
+      const studentUnit = studentMatch[2].trim();
+      const correctUnit = correctMatch[2].trim();
+
+      // Units must match exactly (including special characters)
+      if (studentUnit !== correctUnit) {
         return false;
       }
 
+      // Check numeric tolerance
       const diff = Math.abs(studentValue - correctValue);
 
       // Check absolute tolerance

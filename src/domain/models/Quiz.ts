@@ -34,6 +34,7 @@ export interface QuizConfig {
 export interface StudentAnswer {
   exercise_id: string;
   selected_option: string;
+  student_answer: string;  // The numerical/text answer provided by student
   rationale: string;
   is_correct?: boolean;  // Calculated locally
 }
@@ -73,7 +74,7 @@ export interface FinalQuizResult {
   student_id: string;
   attempts: Array<{
     attemptIndex: number;
-    answers: Record<string, { selectedOption: string; rationale: string }>;
+    answers: Record<string, { selectedOption: string; studentAnswer: string; rationale: string }>;
     result: number;
     submittedAt: string;
     timeSpentSeconds?: number;

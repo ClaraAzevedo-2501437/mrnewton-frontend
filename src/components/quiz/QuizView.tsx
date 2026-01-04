@@ -21,22 +21,24 @@ export const QuizView: React.FC = () => {
   } = useQuizStore();
 
   if (!quiz) {
-    return <div style={styles.loading}>Loading quiz...</div>;
+    return <div style={styles.loading}>Carregando questionário...</div>;
   }
 
   if (is_completed) {
     return (
       <div style={styles.container}>
-        <h2 style={styles.title}>Quiz Completed!</h2>
+        <h2 style={styles.title}>Questionário Concluído!</h2>
         <p style={styles.successMessage}>
-          Your results have been saved successfully.
+          Os seus resultados foram guardados com sucesso.
         </p>
-        <p>You can now close this window.</p>
+        <p>Pode agora fechar esta janela.</p>
       </div>
     );
   }
 
-  const showResults = attempts.length > 0;
+  // Show results only if we have attempts AND the current attempt has been submitted
+  const currentAttemptSubmitted = attempts.some(a => a.attempt_index === current_attempt);
+  const showResults = attempts.length > 0 && currentAttemptSubmitted;
   const showAnswers = quiz.show_answers_after_submission && showResults;
   const canRetry = QuizEvaluator.canRetry(current_attempt, max_retries, is_approved);
 
@@ -98,7 +100,7 @@ export const QuizView: React.FC = () => {
           <div style={styles.exercisesContainer}>
             {quiz.exercises.map((exercise, index) => (
               <div key={exercise.id}>
-                <h3 style={styles.exerciseNumber}>Question {index + 1}</h3>
+                <h3 style={styles.exerciseNumber}>Pergunta {index + 1}</h3>
                 <ExerciseView
                   exercise={exercise}
                   answer={current_answers[exercise.id]}
@@ -111,7 +113,7 @@ export const QuizView: React.FC = () => {
           {/* Submit Button */}
           <div style={styles.submitContainer}>
             <button onClick={submitAttempt} style={styles.submitButton}>
-              Submit Attempt {current_attempt}
+              Submeter Tentativa {current_attempt}
             </button>
           </div>
         </>
@@ -122,71 +124,82 @@ export const QuizView: React.FC = () => {
 
 const styles = {
   container: {
-    maxWidth: '900px',
+    maxWidth: '800px',
     margin: '0 auto',
-    padding: '20px'
+    padding: '40px 20px',
+    backgroundColor: '#ffffff'
   },
   loading: {
     textAlign: 'center' as const,
     padding: '50px',
-    fontSize: '18px'
+    fontSize: '16px',
+    color: '#666666'
   },
   header: {
     textAlign: 'center' as const,
-    marginBottom: '30px',
-    padding: '20px',
-    backgroundColor: '#f5f5f5',
-    borderRadius: '8px'
+    marginBottom: '40px',
+    paddingBottom: '20px',
+    borderBottom: '1px solid #e0e0e0'
   },
   title: {
     marginBottom: '10px',
-    color: '#333'
+    color: '#000000',
+    fontSize: '24px',
+    fontWeight: 'normal' as const
   },
   meta: {
     display: 'flex',
     justifyContent: 'center',
     gap: '15px',
-    color: '#666',
-    fontSize: '14px'
+    color: '#666666',
+    fontSize: '13px',
+    flexWrap: 'wrap' as const
   },
   error: {
-    padding: '15px',
-    backgroundColor: '#ffebee',
-    border: '1px solid #f44336',
-    borderRadius: '4px',
+    padding: '12px',
     marginBottom: '20px',
-    color: '#c62828'
+    backgroundColor: '#f5f5f5',
+    border: '1px solid #cccccc',
+    borderRadius: '2px',
+    color: '#000000',
+    fontSize: '14px'
   },
   exercisesContainer: {
     marginBottom: '30px'
   },
   exerciseNumber: {
-    marginTop: '20px',
+    marginTop: '30px',
     marginBottom: '10px',
-    color: '#555'
+    color: '#000000',
+    fontSize: '16px',
+    fontWeight: 'normal' as const,
+    borderTop: '1px solid #e0e0e0',
+    paddingTop: '30px'
   },
   submitContainer: {
     textAlign: 'center' as const,
-    marginTop: '30px'
+    marginTop: '40px',
+    paddingTop: '20px',
+    borderTop: '1px solid #e0e0e0'
   },
   submitButton: {
-    padding: '15px 40px',
-    fontSize: '18px',
-    backgroundColor: '#4CAF50',
-    color: 'white',
+    padding: '12px 32px',
+    fontSize: '16px',
+    backgroundColor: '#000000',
+    color: '#ffffff',
     border: 'none',
-    borderRadius: '8px',
+    borderRadius: '2px',
     cursor: 'pointer',
-    fontWeight: 'bold' as const
+    fontWeight: 'normal' as const
   },
   reviewSection: {
     marginTop: '40px',
-    paddingTop: '20px',
-    borderTop: '2px solid #ddd'
+    paddingTop: '30px',
+    borderTop: '1px solid #e0e0e0'
   },
   successMessage: {
-    fontSize: '18px',
-    color: '#4CAF50',
-    marginBottom: '20px'
+    color: '#666666',
+    marginBottom: '20px',
+    fontSize: '14px'
   }
 };
