@@ -1,0 +1,86 @@
+{
+	"info": {
+		"_postman_id": "c547bf8b-e494-4a64-bde2-86fab44ce401",
+		"name": "mrnewton-frontend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "49895069"
+	},
+	"item": [
+		{
+			"name": "Config",
+			"item": [
+				{
+					"name": "Get Config Params",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseURL}}/api/config/params"
+					},
+					"response": []
+				},
+				{
+					"name": "Create/Update Config Params",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"params\": [\r\n    {\r\n      \"name\": \"title\",\r\n      \"type\": \"string\",\r\n      \"description\": \"Título da atividade\"\r\n    },\r\n    {\r\n      \"name\": \"grade\",\r\n      \"type\": \"integer\",\r\n      \"description\": \"Ano (10,11,12)\"\r\n    },\r\n    {\r\n      \"name\": \"modules\",\r\n      \"type\": \"array\",\r\n      \"items\": \"string\",\r\n      \"description\": \"Módulos temáticos\"\r\n    },\r\n    {\r\n      \"name\": \"number_of_exercises\",\r\n      \"type\": \"integer\"\r\n    },\r\n    {\r\n      \"name\": \"total_time_minutes\",\r\n      \"type\": \"integer\"\r\n    },\r\n    {\r\n      \"name\": \"number_of_retries\",\r\n      \"type\": \"integer\"\r\n    },\r\n    {\r\n      \"name\": \"relative_tolerance_pct\",\r\n      \"type\": \"number\"\r\n    },\r\n    {\r\n      \"name\": \"absolute_tolerance\",\r\n      \"type\": \"number\"\r\n    },\r\n    {\r\n      \"name\": \"show_answers_after_submission\",\r\n      \"type\": \"boolean\"\r\n    },\r\n    {\r\n      \"name\": \"scoring_policy\",\r\n      \"type\": \"string\",\r\n      \"enum\": [\r\n        \"linear\",\r\n        \"non-linear\"\r\n      ]\r\n    },\r\n    {\r\n      \"name\": \"approval_threshold\",\r\n      \"type\": \"number\"\r\n    },\r\n    {\r\n      \"name\": \"exercises\",\r\n      \"type\": \"array\",\r\n      \"items\": \"object\",\r\n      \"description\": \"Lista de exercícios (question, options, correct_options, correct_answer)\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseURL}}/api/config/params"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Quiz",
+			"item": [
+				{
+					"name": "Get Quizzes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseURL}}/api/config"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Deploy",
+			"item": [
+				{
+					"name": "Create Quiz Instance",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"activity_id\": \"60e974df-2b72-4517-b1b4-e87666c3509e\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseURL}}/api/deploy"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
