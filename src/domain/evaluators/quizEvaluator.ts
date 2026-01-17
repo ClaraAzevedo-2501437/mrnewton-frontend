@@ -1,4 +1,3 @@
-import { evaluate } from 'mathjs';
 import { QuizConfig, StudentAnswer, AttemptResult, Exercise } from '../models/Quiz';
 
 /**
