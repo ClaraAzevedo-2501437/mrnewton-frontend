@@ -6,11 +6,17 @@ export default defineConfig({
   server: {
     port: 3000,
     proxy: {
-      '/api': {
+      '/activity-api': {
         target: 'https://mrnewton-activity.onrender.com',
-        // Backup (local): 'http://localhost:5000'
+        //target: 'http://localhost:5000', // Local development server
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '/api/v1')
+        rewrite: (path) => path.replace(/^\/activity-api/, '/api/v1')
+      },
+      '/analytics-api': {
+        target: 'https://mrnewton-analytics.onrender.com',
+        // target: 'http://localhost:8000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/analytics-api/, '/api/v1/analytics')
       }
     }
   }
