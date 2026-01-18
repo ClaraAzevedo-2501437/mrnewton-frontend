@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   server: {
+    host: '0.0.0.0',
     port: 3000,
     proxy: {
       '/activity-api': {
@@ -19,5 +20,9 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/analytics-api/, '/api/v1/analytics')
       }
     }
+  },
+  preview: {
+    host: '0.0.0.0',
+    port: 3000
   }
 });
