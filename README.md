@@ -22,7 +22,7 @@ Activity Backend (Port 5000)
 
 - **React 18.2** - UI framework
 - **TypeScript** - Type safety
-- **Vite 5.0** - Build tool and dev server
+- **Vite 6.4** - Build tool and dev server
 - **Zustand** - State management
 - **Axios** - HTTP client
 - **mathjs** - Mathematical expression evaluation
